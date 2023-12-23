@@ -21,29 +21,28 @@ token = args.token
 
 del argparse
 
+import getpass
 import my_py_crypt_lib
 
 if cmd == "ek":
     print("impl key based enc")
     #key = create_and_load_key(token)
-    #encrypt(file, token)
+    #encrypt(file, key)
 elif cmd == "dk":
     print("impl key based dec")
     #key = load_key(token)
     #decrypt(file, key)
 elif cmd == "ep":
     if token == "stdin":
-        token = input("Password: ")
-        token2 = input("Again: ")
+        token = getpass.getpass("Password: ")
+        token2 = getpass.getpass("Again: ")
         if token != token2:
             print("Passwords don't match")
-            break
+            exit(1) #return
     print("impl password based enc: " + token)
 elif cmd == "dp":
     if token == "stdin":
-        token = input("Password: ")
+        token = getpass.getpass("Password: ")
     print("impl password based dec: " + token)
 else:
     print("Invalid Command")
-
-del my_py_crypt_lib
