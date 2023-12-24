@@ -25,13 +25,11 @@ import getpass
 import my_py_crypt_lib
 
 if cmd == "ek":
-    print("impl key based enc")
-    #key = create_and_load_key(token)
-    #encrypt(file, key)
+    key = my_py_crypt_lib.create_and_load_key(token)
+    my_py_crypt_lib.encrypt(file, key)
 elif cmd == "dk":
-    print("impl key based dec")
-    #key = load_key(token)
-    #decrypt(file, key)
+    key = my_py_crypt_lib.load_key(token)
+    my_py_crypt_lib.decrypt(file, key)
 elif cmd == "ep":
     if token == "stdin":
         token = getpass.getpass("Password: ")
@@ -39,10 +37,12 @@ elif cmd == "ep":
         if token != token2:
             print("Passwords don't match")
             exit(1) #return
-    print("impl password based enc: " + token)
+    key = my_py_crypt_lib.generate_key(token)
+    my_py_crypt_lib.encrypt(file, key)
 elif cmd == "dp":
     if token == "stdin":
         token = getpass.getpass("Password: ")
-    print("impl password based dec: " + token)
+    key = my_py_crypt_lib.generate_key(token)
+    my_py_crypt_lib.decrypt(file, key)
 else:
     print("Invalid Command")
