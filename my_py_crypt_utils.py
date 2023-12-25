@@ -22,10 +22,10 @@ def encryption_preparation(infile, mutables, ext):
         infile = infile[: -len(dec_ext)]
     if not mutables['outfile']:
         mutables['outfile'] = infile + enc_ext
-        sys.stdout.write(f"Assuming Output file [{mutables['outfile']}].\n")
+        sys.stdout.write(f"Output file not provided. Assuming [{mutables['outfile']}].\n")
     if not mutables['keyfile']:
         mutables['keyfile'] = infile + ext
-        sys.stdout.write(f"Assuming Key file [{mutables['keyfile']}].\n")
+        sys.stdout.write(f"Key file not provided. Assuming [{mutables['keyfile']}].\n")
 
     if os.path.exists(mutables['outfile']):
         sys.stderr.write(f"Error: Output file [{mutables['outfile']}] already exists. Will not overwrite.\n")
@@ -56,13 +56,13 @@ def decryption_preparation(infile, mutables, ext):
             mutables['outfile'] = infile[: -len(enc_ext)]
         else:
             mutables['outfile'] = infile + dec_ext
-        sys.stdout.write(f"Assuming Output file [{mutables['outfile']}].\n")
+        sys.stdout.write(f"Output file not provided. Assuming [{mutables['outfile']}].\n")
     if not mutables['keyfile']:
         if infile.endswith(enc_ext):
             mutables['keyfile'] = infile[: -len(enc_ext)] + ext
         else:
             mutables['keyfile'] = infile + ext
-        sys.stdout.write(f"Assuming Key file [{mutables['keyfile']}].\n")
+        sys.stdout.write(f"Key file not provided. Assuming [{mutables['keyfile']}].\n")
 
     if os.path.exists(mutables['outfile']):
         sys.stderr.write(f"Error: Output file [{mutables['outfile']}] already exists. Will not overwrite.\n")
@@ -105,10 +105,10 @@ def encrypt_with_sap(infile, keyfile, outfile):
         return
 
     import getpass
-    password1 = getpass.getpass("Enter Password: ")
-    password2 = getpass.getpass("Re-enter Password: ")
+    password1 = getpass.getpass('Enter Password: ')
+    password2 = getpass.getpass('Re-enter Password: ')
     if password1 != password2:
-        sys.stderr.write("Error: Entered passwords don't match.\n")
+        sys.stderr.write('Error: Entered passwords don\'t match.\n')
         return
 
     import my_py_crypt_lib
@@ -126,7 +126,7 @@ def decrypt_with_sap(infile, keyfile, outfile):
         return
 
     import getpass
-    password = getpass.getpass("Enter Password: ")
+    password = getpass.getpass('Enter Password: ')
 
     import my_py_crypt_lib
     salt = my_py_crypt_lib.load_salt(mutables['keyfile'])

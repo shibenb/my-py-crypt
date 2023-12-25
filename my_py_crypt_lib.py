@@ -24,7 +24,7 @@ def decrypt(infile, key, outfile):
         decrypted_data = f.decrypt(encrypted_data)
     except fernet.InvalidToken:
         import sys
-        sys.stderr.write('Error: The key/password/salt is incorrect.\n')
+        sys.stderr.write('Error: The key or password or salt is incorrect.\n')
         return
     with open(outfile, 'wb') as file:
         file.write(decrypted_data)
