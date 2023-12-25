@@ -82,22 +82,22 @@ def encrypt_with_key(infile, keyfile, outfile):
     if not encryption_preparation(infile, mutables, key_ext):
         return
 
-    import my_py_crypt_lib
+    import my_py_crypt_core
     if not os.path.exists(mutables['keyfile']):
         sys.stdout.write(f"Creating Key file [{mutables['keyfile']}].\n")
-        my_py_crypt_lib.create_key(mutables['keyfile'])
+        my_py_crypt_core.create_key(mutables['keyfile'])
 
-    key = my_py_crypt_lib.load_key(mutables['keyfile'])
-    my_py_crypt_lib.encrypt(infile, key, mutables['outfile'])
+    key = my_py_crypt_core.load_key(mutables['keyfile'])
+    my_py_crypt_core.encrypt(infile, key, mutables['outfile'])
 
 def decrypt_with_key(infile, keyfile, outfile):
     mutables = {'outfile':outfile, 'keyfile':keyfile}
     if not decryption_preparation(infile, mutables, key_ext):
         return
 
-    import my_py_crypt_lib
-    key = my_py_crypt_lib.load_key(mutables['keyfile'])
-    my_py_crypt_lib.decrypt(infile, key, mutables['outfile'])
+    import my_py_crypt_core
+    key = my_py_crypt_core.load_key(mutables['keyfile'])
+    my_py_crypt_core.decrypt(infile, key, mutables['outfile'])
 
 def encrypt_with_sap(infile, keyfile, outfile):
     mutables = {'outfile':outfile, 'keyfile':keyfile}
@@ -111,14 +111,14 @@ def encrypt_with_sap(infile, keyfile, outfile):
         sys.stderr.write('Error: Entered passwords don\'t match.\n')
         return
 
-    import my_py_crypt_lib
+    import my_py_crypt_core
     if not os.path.exists(mutables['keyfile']):
         sys.stdout.write(f"Creating Key file [{mutables['keyfile']}].\n")
-        my_py_crypt_lib.create_salt(mutables['keyfile'])
+        my_py_crypt_core.create_salt(mutables['keyfile'])
 
-    salt = my_py_crypt_lib.load_salt(mutables['keyfile'])
-    key = my_py_crypt_lib.generate_key(salt, password1)
-    my_py_crypt_lib.encrypt(infile, key, mutables['outfile'])
+    salt = my_py_crypt_core.load_salt(mutables['keyfile'])
+    key = my_py_crypt_core.generate_key(salt, password1)
+    my_py_crypt_core.encrypt(infile, key, mutables['outfile'])
 
 def decrypt_with_sap(infile, keyfile, outfile):
     mutables = {'outfile':outfile, 'keyfile':keyfile}
@@ -128,7 +128,7 @@ def decrypt_with_sap(infile, keyfile, outfile):
     import getpass
     password = getpass.getpass('Enter Password: ')
 
-    import my_py_crypt_lib
-    salt = my_py_crypt_lib.load_salt(mutables['keyfile'])
-    key = my_py_crypt_lib.generate_key(salt, password)
-    my_py_crypt_lib.decrypt(infile, key, mutables['outfile'])
+    import my_py_crypt_core
+    salt = my_py_crypt_core.load_salt(mutables['keyfile'])
+    key = my_py_crypt_core.generate_key(salt, password)
+    my_py_crypt_core.decrypt(infile, key, mutables['outfile'])
