@@ -10,15 +10,15 @@ arg_infile_help = 'Input file to be encrypted or decrypted.'
 
 arg_keyfile = '-k'
 arg_keyfile_major = '--keyfile'
-arg_keyfile_help = 'Key file to use for encryption or decryption of the Input file. If does not exist, then will be created when encrypting. An existing key file is required when decrypting. Key is called \"salt\" when pairing with a password.\nIf argument not provided, then a file with the same name as infile, with an added appropriate extention, will be assumed as an argument.'
+arg_keyfile_help = 'Key file to use for encryption or decryption of the Input file. If does not exist, then will be created when encrypting. An existing key file is required when decrypting. Key is called \"salt\" when pairing with a password. If argument not provided, then a file with the same name as infile, with an added appropriate extention, will be assumed as an argument.'
 
 arg_password = '-p'
 arg_password_major = '--password'
-arg_password_help = 'Create a password to pair with the key (salt) in case of encryption. Provide an existing password paired with the key (salt) for decryption.\nIf argument not provided, the file will be encrypted or decrypted with only the keyfile. If a file was encrypted with password, then the same passwod must be provided to decrypt it.'
+arg_password_help = 'Create a password to pair with the key (salt) in case of encryption. Provide an existing password paired with the key (salt) for decryption. If argument not provided, the file will be encrypted or decrypted with only the keyfile. If a file was encrypted with password, then the same passwod must be provided to decrypt it.'
 
 arg_outfile = '-o'
 arg_outfile_major = '--outfile'
-arg_outfile_help = 'Resultant file of encryption or decryption.\nIf argument not provided, then a file with the same name as infile, with an added appropriate added extention, will be assumed as an argument.'
+arg_outfile_help = 'Resultant file of encryption or decryption. If argument not provided, then a file with the same name as infile, with an added appropriate added extention, will be assumed as an argument.'
 
 import argparse
 parser = argparse.ArgumentParser(description=arg_desc)
