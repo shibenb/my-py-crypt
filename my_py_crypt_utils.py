@@ -1,7 +1,5 @@
 import os
 import sys
-import getpass
-import my_py_crypt_lib
 
 enc_ext='.encrypted'
 dec_ext='.decrypted'
@@ -84,6 +82,7 @@ def encrypt_with_key(infile, keyfile, outfile):
     if not encryption_preparation(infile, mutables, key_ext):
         return
 
+    import my_py_crypt_lib
     if not os.path.exists(mutables['keyfile']):
         sys.stdout.write(f"Creating Key file [{mutables['keyfile']}].\n")
         my_py_crypt_lib.create_key(mutables['keyfile'])
@@ -96,6 +95,7 @@ def decrypt_with_key(infile, keyfile, outfile):
     if not decryption_preparation(infile, mutables, key_ext):
         return
 
+    import my_py_crypt_lib
     key = my_py_crypt_lib.load_key(mutables['keyfile'])
     my_py_crypt_lib.decrypt(infile, key, mutables['outfile'])
 
@@ -104,12 +104,14 @@ def encrypt_with_sap(infile, keyfile, outfile):
     if not encryption_preparation(infile, mutables, salt_ext):
         return
 
+    import getpass
     password1 = getpass.getpass("Enter Password: ")
     password2 = getpass.getpass("Re-enter Password: ")
     if password1 != password2:
         sys.stderr.write("Error: Entered passwords don't match.\n")
         return
 
+    import my_py_crypt_lib
     if not os.path.exists(mutables['keyfile']):
         sys.stdout.write(f"Creating Key file [{mutables['keyfile']}].\n")
         my_py_crypt_lib.create_salt(mutables['keyfile'])
@@ -123,8 +125,10 @@ def decrypt_with_sap(infile, keyfile, outfile):
     if not decryption_preparation(infile, mutables, salt_ext):
         return
 
+    import getpass
     password = getpass.getpass("Enter Password: ")
 
+    import my_py_crypt_lib
     salt = my_py_crypt_lib.load_salt(mutables['keyfile'])
     key = my_py_crypt_lib.generate_key(salt, password)
     my_py_crypt_lib.decrypt(infile, key, mutables['outfile'])

@@ -29,11 +29,9 @@ def decrypt(infile, key, outfile):
     with open(outfile, 'wb') as file:
         file.write(decrypted_data)
 
-from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
-import secrets
-import base64
-
 def create_salt(saltfile, salt_size = 16):
+    import secrets
+
     salt = secrets.token_bytes(salt_size)
     with open(saltfile, 'wb') as file:
         file.write(salt)
@@ -42,6 +40,9 @@ def load_salt(saltfile):
     return open(saltfile, 'rb').read()
 
 def generate_key(salt, password, length = 32, n = 16384, r = 8, p = 1):
+    from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
+    import base64
+
     kdf = Scrypt(salt=salt, length=length, n=n, r=r, p=p)
     derived_key = kdf.derive(password.encode())
     return base64.urlsafe_b64encode(derived_key)
