@@ -1,6 +1,6 @@
 # my-py-crypt
 Small command line program to handle quick encryption and decryption of files  
   
-Tutorial Followed: https://thepythoncode.com/article/encrypt-decrypt-files-symmetric-python  
+Uses the following modules: cryptography, secrets, base64, getpass, argparse, sys, os  
   
-Print -h here
+Tutorial Followed: https://thepythoncode.com/article/encrypt-decrypt-files-symmetric-python    
