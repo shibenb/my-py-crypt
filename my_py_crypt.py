@@ -39,20 +39,19 @@ if args.command == "encrypt":
         pass2 = getpass.getpass("Again: ")
         if pass1 != pass2:
             print("Passwords don't match")
-            exit(1)
         else:
             key = my_py_crypt_lib.generate_key_and_salt(args.keyfile, pass1)
-            my_py_crypt_lib.encrypt(args.infile, key)
+            my_py_crypt_lib.encrypt(args.infile, key, args.outfile)
     else:
         key = my_py_crypt_lib.create_and_load_key(args.keyfile)
-        my_py_crypt_lib.encrypt(args.infile, key)
+        my_py_crypt_lib.encrypt(args.infile, key, args.outfile)
 elif args.command == "decrypt":
     if args.password:
         pass1 = getpass.getpass("Password: ")
         key = my_py_crypt_lib.generate_key_with_salt(args.keyfile, pass1)
-        my_py_crypt_lib.decrypt(args.infile, key)
+        my_py_crypt_lib.decrypt(args.infile, key, args.outfile)
     else:
         key = my_py_crypt_lib.load_key(args.keyfile)
-        my_py_crypt_lib.decrypt(args.infile, key)
+        my_py_crypt_lib.decrypt(args.infile, key, args.outfile)
 else:
     print("Invalid Command")

@@ -1,32 +1,32 @@
 from cryptography import fernet
 
-def create_and_load_key(filename):
+def create_and_load_key(keyfile):
     key = fernet.Fernet.generate_key()
-    with open(filename, "wb") as key_file:
-        key_file.write(key)
+    with open(keyfile, "wb") as file:
+        file.write(key)
     return key
 
-def load_key(filename):
-    return open(filename, "rb").read()
+def load_key(keyfile):
+    return open(keyfile, "rb").read()
 
-def encrypt(filename, key):
+def encrypt(infile, key, outfile):
     f = fernet.Fernet(key)
-    with open(filename, "rb") as file:
+    with open(infile, "rb") as file:
         file_data = file.read()
     encrypted_data = f.encrypt(file_data)
-    with open(filename, "wb") as file:
+    with open(outfile, "wb") as file:
         file.write(encrypted_data)
 
-def decrypt(filename, key):
+def decrypt(infile, key, outfile):
     f = fernet.Fernet(key)
-    with open(filename, "rb") as file:
+    with open(infile, "rb") as file:
         encrypted_data = file.read()
     try:
         decrypted_data = f.decrypt(encrypted_data)
     except fernet.InvalidToken:
         print("Invalid token")
         return
-    with open(filename, "wb") as file:
+    with open(outfile, "wb") as file:
         file.write(decrypted_data)
 
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
